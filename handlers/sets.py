@@ -10,7 +10,7 @@ data = {}
 
 async def hello(message: aiogram.types.Message):
     await message.answer('Приветсвую вас этот бот выполняет операции над множествами',
-                        reply_markup=ReplyKeyboardRemove)
+                          reply_markup=ReplyKeyboardRemove())
     await message.answer('Введите множество А через запятую [1, 2, 3]')
     bot.add_state_handler(FSM.get_set_a, get_set_a)
     await FSM.get_set_a.set()
@@ -61,7 +61,7 @@ async def check_another_operate(message: aiogram.types.Message, state: FSMContex
         await hello(message)
     elif (message.text == 'Нет'):
         await message.answer('Спасибо за использование бота ждем вас еще',
-                              reply_markup=ReplyKeyboardRemove)
+                              reply_markup=ReplyKeyboardRemove())
     
 
 async def choose_operate(message: aiogram.types.Message):
