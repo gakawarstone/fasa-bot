@@ -1,24 +1,18 @@
-from bot_config import admins, bot 
 # from bot_config import schedule
-from utils import notify
-from handlers import sets
-
-handlers = {
-    'start': sets.hello
-}
-
-admin_handlers = {
-    
-}
+import handlers
+from bot_config import admins, bot
+from handlers.help import cmd_list
+from utils.notify import notify_admins
 
 
 def start():
     bot.admins = admins
     # bot.add_task(schedule.on_startup)
-    for cmd in handlers:
-        bot.add_command_handler(cmd, handlers[cmd])
-    for cmd in admin_handlers:
-        bot.add_command_handler(cmd, admin_handlers[cmd], admin_only=True)
-    notify.notify_admins('bot started')
+    bot.add_command_handler('list', cmd_list)
+    for cmd in handlers.users:
+        bot.add_command_handler(cmd, handlers.users[cmd])
+    for cmd in handlers.admins:
+        bot.add_command_handler(cmd, handlers.admins[cmd], admin_only=True)
+    notify_admins('bot started')
     bot.start()
-    notify.notify_admins('bot stopped')
+    notify_admins('bot stopped')
