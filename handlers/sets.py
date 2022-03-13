@@ -44,6 +44,13 @@ async def print_result(message: aiogram.types.Message, state: FSMContext):
         await message.answer('Разность А В = ' + str(a - b))
     elif (operate == 'Разность B A'):
         await message.answer('Разность В А = ' + str(b - a))
+    elif (operate == 'Cимметрическая разница'):
+        await message.answer('Cимметрическая разница' + str(a.symmetric_difference()))
+    elif (operate == 'Дополнение B до A'):
+        if a.issuperset(b):
+            await message.answer('Дополнение множества В до множества А:' + str(a.difference(b)))
+        else:
+            await message.answer('Множество B не является подмножетвом множества A')
 
     buttons = [['Да', 'Нет'], ['Поменять множества']]
     bot.add_keyboard('another_operate', buttons)
@@ -60,12 +67,14 @@ async def check_another_operate(message: aiogram.types.Message, state: FSMContex
     elif (message.text == 'Поменять множества'):
         await hello(message)
     elif (message.text == 'Нет'):
-        await message.answer('Спасибо за использование бота ждем вас еще',
+        await message.answer('Спасибо за использование бота ждем вас еще\nесли захотите снова запустить бота напишите /start',
                               reply_markup=ReplyKeyboardRemove())
     
 
 async def choose_operate(message: aiogram.types.Message):
-    buttons = [['Пересечение', 'Обьединение'], ['Разность A B', 'Разность B A']]
+    buttons = [['Пересечение', 'Обьединение'], 
+               ['Разность A B', 'Разность B A'],
+               ['Cимметрическая разница', 'Дополнение B до A'],]
     bot.add_keyboard('operate_choose', buttons)
     await message.answer('Пожалуйста выберите 🛠 <b>операцию</b>',
                          reply_markup=bot.keyboards['operate_choose'])
