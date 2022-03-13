@@ -45,7 +45,7 @@ async def print_result(message: aiogram.types.Message, state: FSMContext):
     elif (operate == 'Разность B A'):
         await message.answer('Разность В А = ' + str(b - a))
     elif (operate == 'Cимметрическая разница'):
-        await message.answer('Cимметрическая разница' + str(a.symmetric_difference()))
+        await message.answer('Cимметрическая разница' + str(a.symmetric_difference(b)))
     elif (operate == 'Дополнение B до A'):
         if a.issuperset(b):
             await message.answer('Дополнение множества В до множества А:' + str(a.difference(b)))
