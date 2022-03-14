@@ -17,7 +17,7 @@ async def hello(message: aiogram.types.Message):
     e = (c - b).union(a)
     await message.answer('E =' + str(e))
 
-    if (a + b + c == range(1, 11)):
+    if (a.union(b).union(c) == range(1, 11)):
         await message.answer('Множества содержат все арабские числа')
     else:
         await message.answer('Множество не сожержить все арабские числа')
