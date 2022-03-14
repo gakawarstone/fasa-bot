@@ -1,6 +1,3 @@
-import itertools
-from multiprocessing.connection import answer_challenge
-
 import aiogram
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
