@@ -1,3 +1,6 @@
+import itertools
+from multiprocessing.connection import answer_challenge
+
 import aiogram
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
@@ -51,6 +54,8 @@ async def print_result(message: aiogram.types.Message, state: FSMContext):
             await message.answer('Дополнение множества В до множества А:' + str(a.difference(b)))
         else:
             await message.answer('Множество B не является подмножетвом множества A')
+    elif (operate == 'Разбиение B'):
+        await message.answer('Разбиение' + itertools.combinations(b, 2))
 
     buttons = [['Да', 'Нет'], ['Поменять множества']]
     bot.add_keyboard('another_operate', buttons)
@@ -74,7 +79,8 @@ async def check_another_operate(message: aiogram.types.Message, state: FSMContex
 async def choose_operate(message: aiogram.types.Message):
     buttons = [['Пересечение', 'Обьединение'], 
                ['Разность A B', 'Разность B A'],
-               ['Cимметрическая разница', 'Дополнение B до A'],]
+               ['Cимметрическая разница', 'Дополнение B до A'],
+               ['Разбиение B']]
     bot.add_keyboard('operate_choose', buttons)
     await message.answer('Пожалуйста выберите 🛠 <b>операцию</b>',
                          reply_markup=bot.keyboards['operate_choose'])
