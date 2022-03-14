@@ -55,7 +55,7 @@ async def print_result(message: aiogram.types.Message, state: FSMContext):
         else:
             await message.answer('Множество B не является подмножетвом множества A')
     elif (operate == 'Разбиение B'):
-        await message.answer('Разбиение' + str(itertools.combinations(b, 2)))
+        await message.answer('Разбиение' + str(b.symmetric_difference(a, 2)))
 
     buttons = [['Да', 'Нет'], ['Поменять множества']]
     bot.add_keyboard('another_operate', buttons)
